@@ -108,46 +108,7 @@ def get_thread(thread_id):
     else:
         return jsonify({'error': 'Thread not found'}), 404
 
-# @app.route('/posts', methods=['GET'])
-# def get_posts():
-#     posts = mongo.db.posts.find()
-#     return jsonify([{'_id': str(post['_id']), 'title': post['title'], 'content': post['content'], 'date': post['date']} for post in posts])
 
-# # Flask��泣�若����若�����腮翠����������潟�＜�潟�������ｃ�若��������菴遵��
-# @app.route('/posts/', methods=['POST'])
-# def add_post():
-#     data = request.get_json()
-#     post_id = mongo.db.posts.insert_one({
-#         'title': data['title'],
-#         'content': data['content'],
-#         'date': datetime.datetime.utcnow(),
-#         'comments': []  # ��潟�＜�潟�����篆�������������������������
-#     }).inserted_id
-#     return jsonify({'id': str(post_id)})
-
-# # ��潟�＜�潟�����菴遵��������API�����潟�������ゃ�潟��
-# @app.route('/posts/<post_id>/comments', methods=['POST'])
-# def add_comment(post_id):
-#     data = request.get_json()
-#     comment = {
-#         'text': data['text'],
-#         'date': datetime.datetime.utcnow()
-#     }
-#     mongo.db.posts.update_one(
-#         {'_id': ObjectId(post_id)},
-#         {'$push': {'comments': comment}}
-#     )
-#     return jsonify({'status': 'success'})
-
-
-
-# @app.route('/posts/<id>', methods=['DELETE'])
-# def delete_post(id):
-#     result = mongo.db.posts.delete_one({'_id': ObjectId(id)})
-#     if result.deleted_count == 1:
-#         return jsonify({'status': 'success'})
-#     else:
-#         return jsonify({'status': 'error'}), 404
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
