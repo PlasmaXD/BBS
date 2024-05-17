@@ -6,8 +6,8 @@ import datetime
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})  # すべてのオリジンからのアクセスを許可
-# MongoDBの接続設定
+CORS(app, resources={r"/*": {"origins": "*"}})  # �����鴻�������������吾�潟����������≪����祉�鴻��荐怨��
+# MongoDB����･膓�荐㊤��
 app.config["MONGO_URI"] = "mongodb://localhost:27017/mydatabase"
 mongo = PyMongo(app)
 
@@ -38,10 +38,10 @@ def add_comment(thread_id):
         'text': data['text'],
         'date': datetime.datetime.utcnow()
     }
-    # コメントに一意のIDを割り当てる
+    # ��潟�＜�潟�����筝�������ID�����蚊��綵�������
     result = mongo.db.comments.insert_one(comment)
     if result.inserted_id:
-        # スレッドにコメントIDを追加
+        # ��鴻�������������潟�＜�潟��ID���菴遵��
         mongo.db.threads.update_one({'_id': ObjectId(thread_id)}, {'$push': {'comments': result.inserted_id}})
         return jsonify({
             '_id': str(result.inserted_id),
@@ -85,19 +85,7 @@ def delete_comment(thread_id, comment_id):
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-# # コメントを追加するAPIエンドポイント
-# @app.route('/posts/<post_id>/comments', methods=['POST'])
-# def add_comment(post_id):
-#     data = request.get_json()
-#     comment = {
-#         'text': data['text'],
-#         'date': datetime.datetime.utcnow()
-#     }
-#     mongo.db.posts.update_one(
-#         {'_id': ObjectId(post_id)},
-#         {'$push': {'comments': comment}}
-#     )
-#     return jsonify({'status': 'success'})
+
 
 
 
@@ -106,7 +94,7 @@ def delete_comment(thread_id, comment_id):
 def get_threads():
     threads = mongo.db.threads.find()
     return jsonify([{'_id': str(thread['_id']), 'title': thread['title'], 'description': thread['description']} for thread in threads])
-# スレッドの詳細を取得するための新しいエンドポイント
+# ��鴻�����������荅括完������緇������������������違����������潟�������ゃ�潟��
 @app.route('/threads/<thread_id>', methods=['GET'])
 def get_thread(thread_id):
     thread = mongo.db.threads.find_one({'_id': ObjectId(thread_id)})
@@ -125,7 +113,7 @@ def get_thread(thread_id):
 #     posts = mongo.db.posts.find()
 #     return jsonify([{'_id': str(post['_id']), 'title': post['title'], 'content': post['content'], 'date': post['date']} for post in posts])
 
-# # Flaskサーバーの投稿部分にコメントフィールドを追加
+# # Flask��泣�若����若�����腮翠����������潟�＜�潟�������ｃ�若��������菴遵��
 # @app.route('/posts/', methods=['POST'])
 # def add_post():
 #     data = request.get_json()
@@ -133,11 +121,11 @@ def get_thread(thread_id):
 #         'title': data['title'],
 #         'content': data['content'],
 #         'date': datetime.datetime.utcnow(),
-#         'comments': []  # コメントを保持するための配列
+#         'comments': []  # ��潟�＜�潟�����篆�������������������������
 #     }).inserted_id
 #     return jsonify({'id': str(post_id)})
 
-# # コメントを追加するAPIエンドポイント
+# # ��潟�＜�潟�����菴遵��������API�����潟�������ゃ�潟��
 # @app.route('/posts/<post_id>/comments', methods=['POST'])
 # def add_comment(post_id):
 #     data = request.get_json()

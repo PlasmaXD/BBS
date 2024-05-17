@@ -1,27 +1,24 @@
-å¯¾å¿œã—ã¦ã„ã‚‹ Ubuntu ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‚’æ¬¡ã®ãƒšãƒ¼ã‚¸ã§ç¢ºèª
+‘Î‰‚µ‚Ä‚¢‚é Ubuntu ‚Ìƒo[ƒWƒ‡ƒ“‚ğŸ‚Ìƒy[ƒW‚ÅŠm”F
 https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
 
-å…¬é–‹éµã®ã‚¤ãƒ³ãƒãƒ¼ãƒˆ
+ŒöŠJŒ®‚ÌƒCƒ“ƒ|[ƒg
 sudo apt -y install gnupg wget
 wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
-ãƒªã‚¹ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ã®ä½œæˆ
-Ubuntu 20.04 ã®å ´åˆã®å®Ÿè¡Œæ‰‹é †ä¾‹
+ƒŠƒXƒgƒtƒ@ƒCƒ‹‚Ìì¬
+Ubuntu 20.04 ‚Ìê‡‚ÌÀsè‡—á
 
 echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -cs)/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
-MongoDB ã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«
+MongoDB ‚ÌƒCƒ“ƒXƒg[ƒ‹
 sudo apt -y update
 sudo apt -y install mongodb-org
-MongoDB ã®å®Ÿè¡Œé–‹å§‹
+MongoDB ‚ÌÀsŠJn
 sudo systemctl start mongod
-MongoDB ã®å®Ÿè¡ŒãŒã§ããŸã‹ã®ç¢ºèª
+MongoDB ‚ÌÀs‚ª‚Å‚«‚½‚©‚ÌŠm”F
 sudo systemctl status mongod
-Ubuntu ã®ã‚·ã‚¹ãƒ†ãƒ èµ·å‹•æ™‚ã«MongoDB ã‚’è‡ªå‹•å®Ÿè¡Œã™ã‚‹è¨­å®š
+Ubuntu ‚ÌƒVƒXƒeƒ€‹N“®‚ÉMongoDB ‚ğ©“®Às‚·‚éİ’è
 sudo systemctl enable mongod
 
 mongo
 use mydatabase
 db.posts.find()
-# BBS
-# BBS
-# BBS0
 # BBS
