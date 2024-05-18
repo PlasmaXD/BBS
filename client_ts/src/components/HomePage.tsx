@@ -27,7 +27,7 @@ const HomePage: React.FC = () => {
       <CreateThreadForm />
       <List>
         {threads.map(thread => (
-          <Card key={thread._id} style={{ marginBottom: '10px', border: '1px solid #ccc' }}> {/* ボーダースタイルをカードに追加 */}
+          <Card key={thread._id} style={{ marginBottom: '10px', border: '1px solid #ccc' }}> 
             <ListItem button component={Link} to={`/thread/${thread._id}`}>
               <ListItemText primary={thread.title} />
             </ListItem>

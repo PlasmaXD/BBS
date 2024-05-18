@@ -3,21 +3,12 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card, CardContent, Typography, TextField, Button, Container } from '@mui/material';
 import styled from 'styled-components';
-import ImageEditor from './ImageEditor';
 
-const StyledImage = styled.img<{ selected: boolean }>`
+const StyledImage = styled.img`
     max-width: 50px;
     height: auto;
     cursor: pointer;
     margin: 5px;
-    border: ${(props) => (props.selected ? '2px solid blue' : 'none')};
-`;
-
-const PostImage = styled.img`
-    max-width: 50%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
 `;
 
 interface ThreadDetail {
@@ -47,7 +38,6 @@ const ThreadPage: React.FC = () => {
     const [newComment, setNewComment] = useState('');
     const [newCommentImage, setNewCommentImage] = useState<string | null>(null);
     const [stamps, setStamps] = useState<Stamp[]>([]);
-    const [selectedStamp, setSelectedStamp] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchThreadDetail = async () => {
@@ -91,7 +81,6 @@ const ThreadPage: React.FC = () => {
                 setComments([...comments, { _id: response.data._id, text: response.data.text, imageUrl: response.data.imageUrl }]);
                 setNewComment('');
                 setNewCommentImage(null);
-                setSelectedStamp(null);
             } else {
                 console.error('Failed to post comment:', response);
                 alert('Failed to add comment');
@@ -102,19 +91,8 @@ const ThreadPage: React.FC = () => {
         }
     };
 
-    const handleStampClick = (imageUrl: string, stampId: string) => {
-        if (selectedStamp === stampId) {
-            setNewCommentImage(null);
-            setSelectedStamp(null);
-        } else {
-            setNewCommentImage(imageUrl);
-            setSelectedStamp(stampId);
-        }
-    };
-
-    const handleImageSave = (croppedImage: string) => {
-        setNewCommentImage(croppedImage);
-        setSelectedStamp(null);
+    const handleStampClick = (imageUrl: string) => {
+        setNewCommentImage(imageUrl);
     };
 
     const handleDeleteThread = async () => {
@@ -158,18 +136,18 @@ const ThreadPage: React.FC = () => {
                 <CardContent>
                     <Typography variant="h5">{thread.title}</Typography>
                     <Typography color="textSecondary">{thread.description}</Typography>
-                    {thread.imageUrl && <PostImage src={`http://localhost:5000${thread.imageUrl}`} alt="Thread Image" />}
+                    {thread.imageUrl && <img src={`http://localhost:5000${thread.imageUrl}`} alt="Thread Image" style={{ width: '50%', marginTop: '20px' }} />}
                     <Button onClick={handleDeleteThread} variant="contained" color="secondary" style={{ marginTop: '20px' }}>
                         Delete Thread
                     </Button>
-                </CardContent>
+                </CardContent>5
             </Card>
-            <div>
+            <div>5
                 {comments.map((comment, index) => (
                     <Card key={comment._id || index} variant="outlined" style={{ marginTop: '20px' }}>
                         <CardContent>
                             <Typography>{comment.text}</Typography>
-                            {comment.imageUrl && <PostImage src={`http://localhost:5000${comment.imageUrl}`} alt="Comment Image" />}
+                            {comment.imageUrl && <img src={`http://localhost:5000${comment.imageUrl}`} alt="Comment Image" style={{ width: '50%', marginTop: '20px' }} />}
                             <Button onClick={() => handleDeleteComment(comment._id)} variant="contained" color="secondary" style={{ marginLeft: '10px' }}>
                                 Delete Comment
                             </Button>
@@ -188,16 +166,9 @@ const ThreadPage: React.FC = () => {
                     variant="outlined"
                     margin="normal"
                 />
-                <ImageEditor onSave={handleImageSave} />
                 <div>
                     {stamps.map(stamp => (
-                        <StyledImage
-                            key={stamp._id}
-                            src={stamp.imageUrl}
-                            alt="Stamp"
-                            onClick={() => handleStampClick(stamp.imageUrl, stamp._id)}
-                            selected={selectedStamp === stamp._id}
-                        />
+                        <StyledImage key={stamp._id} src={stamp.imageUrl} alt="Stamp" onClick={() => handleStampClick(stamp.imageUrl)} />
                     ))}
                 </div>
                 <Button onClick={handleCommentSubmit} variant="contained" color="primary">
@@ -209,3 +180,4 @@ const ThreadPage: React.FC = () => {
 };
 
 export default ThreadPage;
+

@@ -205,20 +205,6 @@ def get_purchased_stamps():
     user_id = request.headers.get('X-User-Id')
     stamps = mongo.db.stamps.find({'owner_id': user_id})
     return jsonify([{'_id': str(stamp['_id']), 'name': stamp['name'], 'imageUrl': stamp['imageUrl']} for stamp in stamps])
-# @app.route('/api/register', methods=['POST'])
-# def register_user():
-#     data = request.get_json()
-#     username = data.get('username')
-#     password = data.get('password')
-#     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-#     user = {
-#         'username': username,
-#         'password': hashed_password,
-#         'created_at': datetime.datetime.utcnow()
-#     }
-#     mongo.db.users.insert_one(user)
-#     return jsonify({'message': 'User registered successfully'}), 201
-
 @app.route('/api/register', methods=['POST'])
 def register_user():
     data = request.get_json()
@@ -227,7 +213,7 @@ def register_user():
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
     user = {
         'username': username,
-        'password': hashed_password.decode('utf-8'),  # bytes 型を文字列に変換して保存
+        'password': hashed_password,
         'created_at': datetime.datetime.utcnow()
     }
     mongo.db.users.insert_one(user)
@@ -244,61 +230,14 @@ def register_user():
 #     else:
 #         return jsonify({'error': 'Invalid username or password'}), 401
 # ユーザーログイン
-# @app.route('/api/login', methods=['POST'])
-# def login():
-#     data = request.get_json()
-#     user = mongo.db.users.find_one({'username': data['username']})
-#     if user and bcrypt.checkpw(data['password'].encode('utf-8'), user['password']):
-#         session['user_id'] = str(user['_id'])
-#         return jsonify({'message': 'Login successful'}), 200
-#     return jsonify({'message': 'Invalid credentials'}), 401
-
-# @app.route('/api/login', methods=['POST'])
-# def login():
-#     data = request.get_json()
-#     user = mongo.db.users.find_one({'username': data['username']})
-#     if user:
-#         print("User found:", user)
-#         password_attempt = data['password'].encode('utf-8')
-#         print("Encoded password attempt:", password_attempt)
-#         if bcrypt.checkpw(password_attempt, user['password']):
-#             session['user_id'] = str(user['_id'])
-#             return jsonify({
-#                 'message': 'Login successful',
-#                 'user_id': str(user['_id']),
-#                 'username': user['username']
-#             }), 200
-#         else:
-#             print("Password check failed")
-#     else:
-#         print("User not found")
-#     return jsonify({'message': 'Invalid credentials'}), 401
-
-
 @app.route('/api/login', methods=['POST'])
 def login():
     data = request.get_json()
     user = mongo.db.users.find_one({'username': data['username']})
-    if user:
-        print("User found:", user)
-        password_attempt = data['password'].encode('utf-8')
-        print("Encoded password attempt:", password_attempt)
-        stored_hashed_password = user['password'].encode('utf-8')  # 文字列から bytes 型に変換
-        if bcrypt.checkpw(password_attempt, stored_hashed_password):
-            session['user_id'] = str(user['_id'])
-            return jsonify({
-                'message': 'Login successful',
-                'user_id': str(user['_id']),
-                'username': user['username']
-            }), 200
-        else:
-            print("Password check failed")
-    else:
-        print("User not found")
+    if user and bcrypt.checkpw(data['password'].encode('utf-8'), user['password']):
+        session['user_id'] = str(user['_id'])
+        return jsonify({'message': 'Login successful'}), 200
     return jsonify({'message': 'Invalid credentials'}), 401
-
-
-
 
 @app.route('/api/users', methods=['GET'])
 def get_users():
