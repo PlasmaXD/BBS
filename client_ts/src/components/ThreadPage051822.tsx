@@ -76,9 +76,8 @@ const ThreadPage: React.FC = () => {
             const formData = new FormData();
             formData.append('text', newComment);
             if (newCommentImage) {
-                const uniqueId = `${Date.now()}-${Math.random()}`;
                 const blob = await fetch(newCommentImage).then(res => res.blob());
-                formData.append('image', blob, `comment-image-${uniqueId}.png`);
+                formData.append('image', blob, 'comment-image.png');
             }
 
             const response = await axios.post(`http://localhost:5000/threads/${id}/comments`, formData, {

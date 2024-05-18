@@ -21,16 +21,17 @@ const CreateStampPage: React.FC = () => {
         const formData = new FormData();
         formData.append('name', name);
         formData.append('price', price.toString());
+        const uniqueId = `${Date.now()}-${Math.random()}`;
         const blob = await fetch(image).then(res => res.blob());
-        formData.append('image', blob, 'stamp-image.png');
+        formData.append('image', blob, `stamp-image-${uniqueId}.png`);
 
-        const userId = localStorage.getItem('user_id'); // ¥í¡¼¥«¥ë¥¹¥È¥ì¡¼¥¸¤«¤é¥æ¡¼¥¶¡¼ID¤ò¼èÆÀ
+        const userId = localStorage.getItem('user_id'); // ãƒ­ãƒ¼ã‚«ãƒ«ã‚¹ãƒˆãƒ¬ãƒ¼ã‚¸ã‹ã‚‰ãƒ¦ãƒ¼ã‚¶ãƒ¼IDã‚’å–å¾—
 
         try {
-            const response = await axios.post('/api/stamps', formData, {
+            const response = await axios.post('http://localhost:5000/api/stamps', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'X-User-Id': userId || '', // ¥Ø¥Ã¥À¡¼¤Ë¥æ¡¼¥¶¡¼ID¤òÄÉ²Ã
+                    'X-User-Id': userId || '', // ãƒ˜ãƒƒãƒ€ãƒ¼ã«ãƒ¦ãƒ¼ã‚¶ãƒ¼IDã‚’è¿½åŠ 
                 },
             });
 

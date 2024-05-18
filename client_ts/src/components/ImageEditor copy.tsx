@@ -9,7 +9,7 @@ interface ImageEditorProps {
 
 const ImageEditor: React.FC<ImageEditorProps> = ({ onSave }) => {
     const [image, setImage] = useState<string | null>(null);
-    const [cropper, setCropper] = useState<Cropper>();
+    const [cropper, setCropper] = useState<any>();
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
@@ -39,7 +39,7 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ onSave }) => {
                     style={{ height: 400, width: '100%' }}
                     aspectRatio={1}
                     guides={false}
-                    crop={onCrop} // 'crop' イベントハンドラを追加
+                    crop={() => {}}
                     onInitialized={(instance) => setCropper(instance)}
                 />
             )}
@@ -51,3 +51,4 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ onSave }) => {
 };
 
 export default ImageEditor;
+

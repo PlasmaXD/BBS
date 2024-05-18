@@ -54,10 +54,10 @@ const ThreadPage: React.FC = () => {
             try {
                 const response = await axios.get(`http://localhost:5000/threads/${id}`);
                 setThread(response.data);
-
+        
                 const commentsResponse = await axios.get(`http://localhost:5000/threads/${id}/comments`);
                 setComments(commentsResponse.data);
-
+        
                 const userId = localStorage.getItem('user_id');
                 const stampsResponse = await axios.get('/api/purchasedstamps', {
                     headers: { 'X-User-Id': userId || '' },
@@ -67,6 +67,7 @@ const ThreadPage: React.FC = () => {
                 console.error('Error fetching thread detail:', error);
             }
         };
+        
 
         fetchThreadDetail();
     }, [id]);
@@ -76,9 +77,8 @@ const ThreadPage: React.FC = () => {
             const formData = new FormData();
             formData.append('text', newComment);
             if (newCommentImage) {
-                const uniqueId = `${Date.now()}-${Math.random()}`;
                 const blob = await fetch(newCommentImage).then(res => res.blob());
-                formData.append('image', blob, `comment-image-${uniqueId}.png`);
+                formData.append('image', blob, 'comment-image.png');
             }
 
             const response = await axios.post(`http://localhost:5000/threads/${id}/comments`, formData, {

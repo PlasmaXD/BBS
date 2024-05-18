@@ -52,12 +52,13 @@ const CreateThreadForm: React.FC = () => {
                 value={description}
                 onChange={e => setDescription(e.target.value)}
             />
+{/*             
             <input
                 type="file"
                 onChange={e => setImage(e.target.files ? e.target.files[0] : null)}
                 accept="image/*"
                 required
-            />
+            /> */}
             <Button type="submit" variant="contained" color="primary">
                 Create Thread
             </Button>
