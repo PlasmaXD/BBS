@@ -1,28 +1,54 @@
-???????????? Ubuntu ???o?[?W???????????y?[?W???m?F
-https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
+### 1. パッケージインストール
 
-???J?????C???|?[?g
-sudo apt -y install gnupg wget
-wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
-???X?g?t?@?C????????
-Ubuntu 20.04 ???????????s??????
 
-echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -cs)/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
-MongoDB ???C???X?g?[??
-sudo apt -y update
-sudo apt -y install mongodb-org
-MongoDB ?????s?J?n
-sudo systemctl start mongod
-MongoDB ?????s?????????????m?F
-sudo systemctl status mongod
-Ubuntu ???V?X?e???N??????MongoDB ?????????s????????
-sudo systemctl enable mongod
+```bash
+# Node.jsのインストール
+sudo apt update
+sudo apt install nodejs npm
 
-mongosh
-use mydatabase
-db.posts.find()
+# MongoDBのインストール
+sudo apt install -y mongodb
 
-sudo rm /tmp/mongodb-27017.sock
+# Pythonのインストール（FlaskがPythonに依存しているため）
+sudo apt install python3 python3-pip
+
+# Flaskとその他の依存関係のインストール
+pip3 install Flask pymongo
+```
+
+### 2. MongoDBのセットアップ
+ MongoDBの起動
+
+
+```bash
+sudo systemctl start mongodb
+```
+MongoDBを自動起動に設定
+
+```bash
+sudo systemctl enable mongodb
+```
+
+### 3. Flask起動
+
+
+```bash
+export FLASK_APP=app.py
+export FLASK_ENV=development
+flask run
+```
+
+### 4. Next.js起動
+依存関係のインストール
+
+```bash
+npm install
+```
+起動
+```bash
+npm run dev
+```
+
 
 # BBS
 db.users.remove({ username: "jun" })
