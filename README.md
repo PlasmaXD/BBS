@@ -1,3 +1,7 @@
+![Example Image](image.png)
+
+
+
 ### 1. パッケージインストール
 
 
