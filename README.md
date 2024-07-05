@@ -1,5 +1,7 @@
-<!-- HTMLを使用して画像を並べる -->
-
+### 概略
+<div style="display: flex; flex-wrap: wrap;">
+  <img src="概略.png" alt="1" style="width: 800px; margin: 5px;">
+</div>
 
 ### 実際にこのコードを動かしたときのデモ画像
 <div style="display: flex; flex-wrap: wrap;">
