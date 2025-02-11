@@ -1,7 +1,6 @@
 
 ## Architecture
-![alt text](image-1.png)
-
+![alt text](Arc.png)
 ### 実際にこのコードを動かしたときのデモ画像
 <div style="display: flex; flex-wrap: wrap;">
   <img src="1.png" alt="1" style="width: 200px; margin: 5px;">
