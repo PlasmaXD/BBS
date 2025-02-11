@@ -70,3 +70,5 @@ npm run dev
 # BBS
 db.users.remove({ username: "jun" })
 db.users.find({ username: "jun" })
+## Architecture
+![alt text](image-1.png)
