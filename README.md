@@ -1,15 +1,14 @@
-### 概略
-<div style="display: flex; flex-wrap: wrap;">
-  <img src="概略.png" alt="1" style="width: 800px; margin: 5px;">
-</div>
+
+## Architecture
+![alt text](image-1.png)
 
 ### 実際にこのコードを動かしたときのデモ画像
 <div style="display: flex; flex-wrap: wrap;">
-  <img src="1.png" alt="1" style="width: 400px; margin: 5px;">
-  <img src="2.png" alt="2" style="width: 400px; margin: 5px;">
-  <img src="4.png" alt="4" style="width: 300px; margin: 5px;">
-  <img src="5.png" alt="5" style="width: 300px; margin: 5px;">
-  <img src="6.png" alt="6" style="width: 300px; margin: 5px;">
+  <img src="1.png" alt="1" style="width: 200px; margin: 5px;">
+  <img src="2.png" alt="2" style="width: 200px; margin: 5px;">
+  <img src="4.png" alt="4" style="width: 200px; margin: 5px;">
+  <img src="5.png" alt="5" style="width: 200px; margin: 5px;">
+  <img src="6.png" alt="6" style="width: 200px; margin: 5px;">
 </div>
 
 
@@ -70,5 +69,3 @@ npm run dev
 # BBS
 db.users.remove({ username: "jun" })
 db.users.find({ username: "jun" })
-## Architecture
-![alt text](image-1.png)
